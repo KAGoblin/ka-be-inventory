@@ -1,0 +1,20 @@
+[run]
+parallel = True
+concurrency = multiprocessing
+branch = True
+include =
+    ka_starter_api/api/*
+    ka_starter_api/apps/*
+    ka_starter_api/clients/*
+    ka_starter_api/drf/*
+    ka_starter_api/event_handlers/*
+    ka_starter_api/libs/*
+    ka_starter_api/services/*
+    ka_starter_api/tasks/*
+    ka_starter_api/utils/*
+omit =
+    */__init__.py
+    */fixtures/*
+    */migrations/*
+    */models.py
+    */config.py
