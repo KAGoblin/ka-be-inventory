@@ -1,5 +1,5 @@
 """
-URL configuration for ka_starter_api project.
+URL configuration for ka_be_inventory project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/

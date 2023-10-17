@@ -1,4 +1,4 @@
-# ka-starter-api
+# ka-be-inventory
 Template Repository with defined Django-Oscar configs required for academic research purpose on XYZ Corp
 
 ## Setup
@@ -44,7 +44,7 @@ DB_CRED_PASSWORD=
 ```
 pipenv run python manage.py runserver
 ```
-- Your app should now be running on localhost:8000.
+- Your app should now be running on localhost:8002.
 
 ## What Should be Replaced for Creating New Service
 

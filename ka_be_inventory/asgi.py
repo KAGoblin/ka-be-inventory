@@ -1,5 +1,5 @@
 """
-ASGI config for ka_starter_api project.
+ASGI config for ka_be_inventory project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -10,6 +10,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ka_starter_api.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ka_be_inventory.settings')
 
 application = get_asgi_application()

@@ -6,9 +6,14 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ka_starter_api.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ka_be_inventory.settings')
     try:
         from django.core.management import execute_from_command_line
+        # Override default port for `runserver` command
+        import django
+        django.setup()
+        from django.core.management.commands.runserver import Command as runserver
+        runserver.default_port = "8002"
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
