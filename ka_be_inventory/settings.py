@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 import sys
 from collections import OrderedDict
-from decimal import Decimal
-from decimal import ROUND_DOWN
 from pathlib import Path
 
 import dj_database_url
@@ -474,11 +472,11 @@ OSCAR_DEFAULT_CURRENCY = 'IDR'
 # Offer settings
 
 
-def round_offer_function(amount):
-    return amount.quantize(Decimal('1.'), rounding=ROUND_DOWN)
+# def round_offer_function(amount):
+#     return amount.quantize(Decimal('1.'), rounding=ROUND_DOWN)
 
 
-OSCAR_OFFER_ROUNDING_FUNCTION = round_offer_function
+# OSCAR_OFFER_ROUNDING_FUNCTION = round_offer_function
 
 # Checkout settings
 OSCAR_ALLOW_ANON_CHECKOUT = True
