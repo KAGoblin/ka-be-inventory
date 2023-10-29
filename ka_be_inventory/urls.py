@@ -36,7 +36,6 @@ urlpatterns = [
     # API Layer for oscar
     # re_path(r'^api/v2/', api_v2.urls),
     re_path(r'^api/', include("oscarapi.urls")),
-    re_path(r'^api/', include("ka_be_inventory.apps.inventory.urls")),
 
     # oscar
     # - Block default public views (because we're only using it as API server)
