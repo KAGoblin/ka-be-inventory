@@ -1,5 +1,5 @@
 default_language_version:
-  python: python3.10.2
+  python: python3.8.18
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -26,7 +26,7 @@ repos:
     rev: v1.0.1
     hooks:
       - id: reorder-python-imports
-        language_version: '3.10'
+        language_version: '3.8'
   - repo: meta
     hooks:
       - id: check-useless-excludes

@@ -18,7 +18,7 @@ sudo apt install python3-pip
 ```
 - Install pyenv
   - https://itslinuxfoss.com/install-use-pyenv-ubuntu/
-  - install & use Python 3.10.2
+  - install & use Python 3.8.18
 - Install pipenv
 ```
 python -m pip install pipenv
