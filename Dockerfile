@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install --no-install-recommends -y autoconf \
         automake \
         pkg-config \
-        libtool libpq-dev libjpeg-dev zlib1g-dev build-essential git libssl-dev libffi-dev gcc locales locales-all wget unzip && pip install pipenv futures tblib
+        libtool libpq-dev libjpeg-dev zlib1g-dev build-essential git libssl-dev libffi-dev gcc locales locales-all wget unzip && pip install pipenv
 RUN apt-get install --fix-broken
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
@@ -18,7 +18,7 @@ RUN pipenv install --system --deploy
 
 ADD . /app/
 
-RUN python manage.py collectstatic --no-input
+# RUN python manage.py collectstatic --no-input
 
 ARG VERSION
 ENV SERVER_VERSION=$VERSION
