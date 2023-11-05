@@ -447,8 +447,11 @@ STATIC_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
+GS_MEDIA_BUCKET_NAME = os.getenv("GS_MEDIA_BUCKET_NAME")
 MEDIA_ROOT = location("public/media")
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
+MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_MEDIA_BUCKET_NAME)
+OSCAR_MISSING_IMAGE_URL = MEDIA_URL + 'image_not_found.jpg'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
