@@ -347,7 +347,12 @@ CORS_ALLOW_HEADERS = (
     'zone-code',
 )
 
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://ka-be-inventory-iuls6xv2yq-uc.a.run.app',
+    'https://ka-be-offer-iuls6xv2yq-uc.a.run.app',
+    'https://ka-be-basket-iuls6xv2yq-uc.a.run.app',
+    'https://ka-be-order-iuls6xv2yq-uc.a.run.app',
+]
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
