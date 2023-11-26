@@ -57,9 +57,14 @@ def is_run_in_docker_env():
     return os.getenv('DOCKER_ENV') == 'True'
 
 
+def is_run_in_dev_env():
+    return os.getenv('DJANGO_ENV') == 'development'
+
+
 IS_RUN_IN_DOCKER_ENV = is_run_in_docker_env()
 IS_RUN_IN_TEST_ENV = is_run_in_test_env()
 IS_RUN_IN_PROD_ENV = is_run_in_prod_env()
+IS_RUN_IN_DEV_ENV = is_run_in_dev_env()
 
 
 # Application definition
@@ -347,14 +352,15 @@ CORS_ALLOW_HEADERS = (
     'zone-code',
 )
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://ka-be-inventory-iuls6xv2yq-uc.a.run.app',
-    'https://ka-be-offer-iuls6xv2yq-uc.a.run.app',
-    'https://ka-be-basket-iuls6xv2yq-uc.a.run.app',
-    'https://ka-be-order-iuls6xv2yq-uc.a.run.app',
-]
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+if not IS_RUN_IN_DEV_ENV:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://ka-be-inventory-iuls6xv2yq-uc.a.run.app',
+        'https://ka-be-offer-iuls6xv2yq-uc.a.run.app',
+        'https://ka-be-basket-iuls6xv2yq-uc.a.run.app',
+        'https://ka-be-order-iuls6xv2yq-uc.a.run.app',
+    ]
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 # Database
@@ -427,35 +433,45 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = '/static/'
 STATIC_ROOT = location('public/static')
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-# )
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
-    }
-}
-# Google Cloud Storage for Static File Serve
-GS_PROJECT_ID = os.getenv("GS_PROJECT_ID")
-GS_BUCKET_NAME = os.getenv("GS_BUCKET_NAME")
-GS_AUTO_CREATE_BUCKET = True
-GS_DEFAULT_ACL = 'publicRead'
 
-STATIC_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
+if IS_RUN_IN_DEV_ENV:
+    STATIC_URL = '/static/'
+
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        }
+    }
+    # Google Cloud Storage for Static File Serve
+    GS_PROJECT_ID = os.getenv("GS_PROJECT_ID")
+    GS_BUCKET_NAME = os.getenv("GS_BUCKET_NAME")
+    GS_AUTO_CREATE_BUCKET = True
+    GS_DEFAULT_ACL = 'publicRead'
+
+    STATIC_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-GS_MEDIA_BUCKET_NAME = os.getenv("GS_MEDIA_BUCKET_NAME")
+
 MEDIA_ROOT = location("public/media")
-# MEDIA_URL = '/media/'
-MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_MEDIA_BUCKET_NAME)
+
+if IS_RUN_IN_DEV_ENV:
+    MEDIA_URL = '/media/'
+else:
+    GS_MEDIA_BUCKET_NAME = os.getenv("GS_MEDIA_BUCKET_NAME")
+    MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(
+        GS_MEDIA_BUCKET_NAME)
+
 OSCAR_MISSING_IMAGE_URL = MEDIA_URL + 'image_not_found.jpg'
 
 # Default primary key field type
